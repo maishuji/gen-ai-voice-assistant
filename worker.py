@@ -1,4 +1,5 @@
 from openai import OpenAI
+import os
 import requests
 
 openai_client = OpenAI()
@@ -39,6 +40,11 @@ def text_to_speech(text, voice=""):
         # Set up Watson Text-to-Speech HTTP Api url
     base_url = '...'
     api_url = base_url + '/text-to-speech/api/v1/synthesize?output=output_text.wav'
+    
+    api_key = os.getenv("WATSON_TTS_API_KEY")
+    
+    auth = ("apikey", api_key)
+    
     # Adding voice parameter in api_url if the user has selected a preferred voice
     if voice != "" and voice != "default":
         api_url += "&voice=" + voice
@@ -52,7 +58,7 @@ def text_to_speech(text, voice=""):
         'text': text,
     }
     # Send a HTTP Post request to Watson Text-to-Speech Service
-    response = requests.post(api_url, headers=headers, json=json_data)
+    response = requests.post(api_url, auth=auth, headers=headers, json=json_data)
     print('text to speech response:', response)
     return response.content
 
