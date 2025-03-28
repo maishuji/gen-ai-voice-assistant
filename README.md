@@ -55,6 +55,22 @@ IBM Watson provides essential speech processing capabilities:
 - **AI Intelligence**: OpenAI **GPT-3** for chatbot interactions.
 - **Speech Output**: IBM Watson **Text-to-Speech (TTS)** for vocal responses.
 
+
+## Pre-requisites
+
+### Pre-Fetch the template - Already done
+
+*The step is already done*
+We receive the outline of the project, and place it in root directory.
+We need to remove the `.git` of the fetched repo as we will integrate the repo this one.
+```shell
+git clone https://github.com/arora-r/chatapp-with-voice-and-openai-outline.git
+rm -rf chatapp-with-voice-and-openai-outline/.git
+mv chatapp-with-voice-and-openai-outline/* .
+rm -rf chatapp-with-voice-and-openai-outline
+```
+
+
 ## Deployment with Docker
 
 ### Why Docker?
@@ -63,6 +79,7 @@ IBM Watson provides essential speech processing capabilities:
 - **Fast and efficient deployment** across different systems.
 - **Repeatability and automation** to streamline the process.
 - **Supports Agile and CI/CD pipelines** for DevOps integration.
+
 
 ### Running the Project with Docker
 
@@ -75,6 +92,10 @@ docker build -t voice-assistant .
 # Run the container
 docker run -p 5000:5000 voice-assistant
 ```
+
+
+
+
 
 ## Conclusion
 
