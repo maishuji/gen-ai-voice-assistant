@@ -9,21 +9,31 @@ def speech_to_text(audio_binary):
     # Set up Watson Speech-to-Text HTTP Api url
     base_url = '...'
     api_url = base_url+'/speech-to-text/api/v1/recognize'
+    
+    api_key = os.getenv("WATSON_STT_API_KEY")
+    
+    auth = ("apikey", api_key)
+    
     # Set up parameters for our HTTP reqeust
     params = {
         'model': 'en-US_Multimedia',
     }
+    
     # Set up the body of our HTTP request
     body = audio_binary
     # Send a HTTP Post request
-    response = requests.post(api_url, params=params, data=audio_binary).json()
+    response = requests.post(api_url, auth=auth params=params, data=audio_binary).json()
     # Parse the response to get our transcribed text
     text = 'null'
-    while bool(response.get('results')):
-        print('speech to text response:', response)
-        text = response.get('results').pop().get('alternatives').pop().get('transcript')
-        print('recognised text: ', text)
-        return text
+    if response.status_code == 200:
+        while bool(response.get('results')):
+            print('speech to text response:', response)
+            text = response.get('results').pop().get('alternatives').pop().get('transcript')
+            print('recognised text: ', text)
+            return text
+    # If request failed, print error
+    print("Error:", response.status_code, response.text)
+    return text
 
 def text_to_speech(text, voice=""):
         # Set up Watson Text-to-Speech HTTP Api url
