@@ -70,6 +70,35 @@ mv chatapp-with-voice-and-openai-outline/* .
 rm -rf chatapp-with-voice-and-openai-outline
 ```
 
+### Set virtual environment and install requirements
+
+```shell
+# Install virtualenv (ensure pip is up-to-date first)
+pip3 install --upgrade pip
+pip3 install virtualenv
+
+# Create a virtual environment named 'venv'
+python3 -m virtualenv venv  # More reliable than calling 'virtualenv' directly
+
+# Activate the virtual environment
+source venv/bin/activate  # Use 'venv\Scripts\activate' on Windows
+
+# Install dependencies from requirements.txt
+pip install -r requirements.txt
+```
+
+### Add ca-certificates (optional)
+
+Copy certificates to make use of free open ai usage within the lab. This is when using *IBM Skills network* to get free access.
+
+```shell
+mkdir ./certs
+cp /usr/local/share/ca-certificates/rootCA.crt ./certs/
+```
+
+
+
+
 
 ## Deployment with Docker
 
@@ -87,10 +116,10 @@ To build and run the voice assistant using Docker:
 
 ```sh
 # Build the Docker image
-docker build -t voice-assistant .
+docker build . -t voice-assistant
 
 # Run the container
-docker run -p 5000:5000 voice-assistant
+docker run -p 8000:8000 voice-assistant
 ```
 
 
